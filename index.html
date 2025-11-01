@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedConnect - Doctor Appointment Booking</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-user-md"></i>
+                <span>MedConnect</span>
+            </div>
+            <div class="nav-menu hidden" id="navMenu">
+                <button class="btn btn--sm" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Landing Page -->
+    <div id="landingPage" class="page-content">
+        <div class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Welcome to MedConnect</h1>
+                    <p class="hero-subtitle">Your trusted platform for booking doctor appointments</p>
+                    <div class="role-selection">
+                        <div class="role-card" onclick="showLogin('patient')">
+                            <i class="fas fa-user"></i>
+                            <h3>I'm a Patient</h3>
+                            <p>Book appointments with qualified doctors</p>
+                        </div>
+                        <div class="role-card" onclick="showLogin('doctor')">
+                            <i class="fas fa-user-md"></i>
+                            <h3>I'm a Doctor</h3>
+                            <p>Manage your practice and appointments</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="page-content hidden">
+        <div class="container">
+            <div class="auth-container">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="auth-header">
+                            <button class="btn-back" onclick="showLanding()">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <h2 id="loginTitle">Login as Patient</h2>
+                        </div>
+                        
+                        <form id="loginForm" class="auth-form">
+                            <div class="form-group">
+                                <label for="loginEmail" class="form-label">Email</label>
+                                <input type="email" id="loginEmail" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" id="loginPassword" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                        </form>
+                        
+                        <div class="auth-footer">
+                            <p>Don't have an account? <button type="button" class="link-btn" onclick="showRegister()">Register here</button></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Page -->
+    <div id="registerPage" class="page-content hidden">
+        <div class="container">
+            <div class="auth-container">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="auth-header">
+                            <button class="btn-back" onclick="showLogin()">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <h2 id="registerTitle">Register as Patient</h2>
+                        </div>
+                        
+                        <form id="registerForm" class="auth-form">
+                            <!-- Common fields -->
+                            <div class="form-group">
+                                <label for="regName" class="form-label">Full Name</label>
+                                <input type="text" id="regName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regEmail" class="form-label">Email</label>
+                                <input type="email" id="regEmail" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regPhone" class="form-label">Phone</label>
+                                <input type="tel" id="regPhone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="regPassword" class="form-label">Password</label>
+                                <input type="password" id="regPassword" class="form-control" required>
+                            </div>
+                            
+                            <!-- Patient specific fields -->
+                            <div id="patientFields">
+                                <div class="form-group">
+                                    <label for="regAge" class="form-label">Age</label>
+                                    <input type="number" id="regAge" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="regGender" class="form-label">Gender</label>
+                                    <select id="regGender" class="form-control">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="regAddress" class="form-label">Address</label>
+                                    <textarea id="regAddress" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Doctor specific fields -->
+                            <div id="doctorFields" class="hidden">
+                                <div class="form-group">
+                                    <label for="regSpecialization" class="form-label">Specialization</label>
+                                    <input type="text" id="regSpecialization" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="regQualification" class="form-label">Qualification</label>
+                                    <input type="text" id="regQualification" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="regExperience" class="form-label">Experience</label>
+                                    <input type="text" id="regExperience" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="regHospital" class="form-label">Hospital</label>
+                                    <select id="regHospital" class="form-control">
+                                        <option value="">Select Hospital</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="regFees" class="form-label">Consultation Fees</label>
+                                    <input type="number" id="regFees" class="form-control">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn--primary btn--full-width">Register</button>
+                        </form>
+                        
+                        <div class="auth-footer">
+                            <p>Already have an account? <button type="button" class="link-btn" onclick="showLogin()">Login here</button></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Dashboard -->
+    <div id="patientDashboard" class="page-content hidden">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Patient Dashboard</h1>
+                <div class="notification-badge">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="patientNotificationCount">0</span>
+                </div>
+            </div>
+            
+            <!-- Search and Filter Section -->
+            <div class="search-section">
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="form-control search-input" placeholder="Search doctors, hospitals, or specializations...">
+                    <button class="btn btn--primary search-btn" onclick="searchDoctors()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div class="filter-container">
+                    <select id="cityFilter" class="form-control filter-select">
+                        <option value="">All Cities</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Bangalore">Bangalore</option>
+                    </select>
+                    <select id="specializationFilter" class="form-control filter-select">
+                        <option value="">All Specializations</option>
+                        <option value="Cardiologist">Cardiologist</option>
+                        <option value="Dermatologist">Dermatologist</option>
+                        <option value="Pediatrician">Pediatrician</option>
+                        <option value="Neurologist">Neurologist</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Doctors List -->
+            <div class="doctors-grid" id="doctorsGrid"></div>
+            
+            <!-- My Appointments Section -->
+            <div class="appointments-section">
+                <h2>My Appointments</h2>
+                <div id="patientAppointments" class="appointments-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Dashboard -->
+    <div id="doctorDashboard" class="page-content hidden">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Doctor Dashboard</h1>
+                <div class="notification-badge">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="doctorNotificationCount">0</span>
+                </div>
+            </div>
+            
+            <div class="doctor-dashboard-content">
+                <!-- Profile Management -->
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Profile Management</h3>
+                        <form id="doctorProfileForm">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" id="doctorName" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Specialization</label>
+                                    <input type="text" id="doctorSpecialization" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Qualification</label>
+                                    <input type="text" id="doctorQualification" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Experience</label>
+                                    <input type="text" id="doctorExperience" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Hospital</label>
+                                    <select id="doctorHospital" class="form-control">
+                                        <option value="">Select Hospital</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Consultation Fees</label>
+                                    <input type="number" id="doctorFees" class="form-control">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn--primary">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Availability Management -->
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Manage Availability</h3>
+                        <div id="availabilityManager" class="availability-grid"></div>
+                        <button class="btn btn--secondary" onclick="updateAvailability()">Update Availability</button>
+                    </div>
+                </div>
+                
+                <!-- Appointment Requests -->
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Appointment Requests</h3>
+                        <div id="appointmentRequests" class="appointments-list"></div>
+                    </div>
+                </div>
+                
+                <!-- Confirmed Appointments -->
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Confirmed Appointments</h3>
+                        <div id="confirmedAppointments" class="appointments-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Book Appointment</h3>
+                <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="selectedDoctorInfo"></div>
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label class="form-label">Select Date</label>
+                        <input type="date" id="appointmentDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Available Time Slots</label>
+                        <div id="timeSlots" class="time-slots"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Describe your problem</label>
+                        <textarea id="problemDescription" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn--secondary" onclick="closeBookingModal()">Cancel</button>
+                        <button type="submit" class="btn btn--primary">Book Appointment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Notifications</h3>
+                <button class="modal-close" onclick="closeNotificationModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="notificationsList" class="notifications-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
